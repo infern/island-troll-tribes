@@ -523,6 +523,7 @@ local item added
             // FIRE - MAGIC + BONE COAT + FLINT = 3 + 37 + 1 = 41
             // FROST - MAGIC + BONE COAT + SPRIT OF WATER = 40 + 3 = 43
             // HEAL - MAGIC + BONE COAT + BUTSU = 40 + 1 = 41
+			// CAMO - MAGIC + BONE COAT + STICK = 40 + 1 = 41
             if i[0] == ITEM_MAGIC and i[1] == ITEM_BONE_COAT and i[2] == ITEM_FLINT then
                 call RemoveItem(t[0])
                 call RemoveItem(t[1])
@@ -544,6 +545,13 @@ local item added
                 call UnitAddItemByIdSwapped( ITEM_CLOAK_OF_HEALING, GetTriggerUnit() )
                 call itemLower(2)
             endif
+			if i[0] == ITEM_MAGIC and i[1] == ITEM_BONE_COAT and i[2] == ITEM_STICK then
+				call RemoveItem(t[0])
+				call RemoveItem(t[1])
+				call RemoveItem(t[2])
+				call UnitAddItemByIdSwapped( ITEM_CAMOUFLAGE_COAT, GetTriggerUnit() )
+				call itemLower(2)
+			endif
             // END CLOAK
         endif
     endif
@@ -638,16 +646,6 @@ local item added
             set added = CreateItem(ITEM_DARK_THISTLES, GetUnitX(GetTriggerUnit()), GetUnitY(GetTriggerUnit()))
             call UnitAddItem(GetTriggerUnit(), added)
             call SetItemCharges(added, e)
-        endif
-        if i[0] == ITEM_BONE_COAT and i[1] == ITEM_DARK_ROCK and i[2] == ITEM_DARK_THISTLES and i[3] == ITEM_STICK and i[4] == ITEM_TINDER and i[5] == ITEM_TINDER then
-            call RemoveItem(t[0])
-            call RemoveItem(t[1])
-            call RemoveItem(t[2])
-            call RemoveItem(t[3])
-            call RemoveItem(t[4])
-            call RemoveItem(t[5])
-            call UnitAddItemByIdSwapped( ITEM_CAMOUFLAGE_COAT, GetTriggerUnit() )
-            call itemLower(3)
         endif
         set bol1 = checkHide(t[4])
         set bol2 = checkHide(t[5])
