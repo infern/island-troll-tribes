@@ -1,7 +1,7 @@
 
-// library v288c requires ChangeLog {
-//   function onInit() {
-//     ChangeLog changes = ChangeLog.create(2, 88, 'c');
-//     changes.push("Changed camouflage coat recipe to Magic, Bone coat and stick;Also Changed crafting location to Witch doctor's hut");
-//   }
-// }
+library v288c requires ChangeLog {
+  function onInit() {
+    ChangeLog changes = ChangeLog.create(2, 88, 'c');
+    changes.push("Changed camouflage coat recipe to Magic, Bone coat and stick;Also Changed crafting location to Witch doctor's hut");
+  }
+}
