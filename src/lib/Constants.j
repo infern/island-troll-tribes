@@ -74,34 +74,6 @@ library Constants {
     constant string RED_COLOR       = "|cffff0000";        // Red
     constant string SPECIAL_COLOR   = "|cffff6347";        // Tomato
     constant string HEALTH_COLOR    = "|cffd67a7a";        // Salmon
-
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-    constant string 
-
-"|cffff0303";
-"|cff0042ff";
-"|cff1ce6b9";
-"|cff540081";
-"|cfffffc00";
-"|cfffe8a0e";
-"|cff20c000";
-"|cffe55bb0";
-"|cff959697";
-"|cff7fbff1";
-"|cff106246";
-"|cff492a04";
-"|cff696969";
   }
 
   /* Language constants */
