@@ -6,6 +6,7 @@ library v288g requires ChangeLog {
     changes.push("Fix items from spawning when you sell an item");
     changes.push("Fix medallion of courage not working");
     changes.push("Fix timer spam (hopefully)");
+	changes.push("Changed Elemental Potion effect, Recoded Radar Scout spells/modified some");
   }
 }
 
