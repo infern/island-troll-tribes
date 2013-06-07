@@ -229,7 +229,7 @@ library ID {
 		// Spells
 		//#####################################################
 
-		// Pet Spells
+		// Pet spells
 		constant integer SPELL_PET_ATTACK             = 'A01B';
 		constant integer SPELL_PET_BRING_ITEMS        = 'A06R';
 		constant integer SPELL_PET_DROP_ITEMS         = 'A03R';
@@ -249,10 +249,6 @@ library ID {
 		constant integer SPELL_DISEASE                = 'A041';
 		constant integer SPELL_CURE_ALL_ITEM          = 'A05K';
 		constant integer SPELL_SUPER_FORM_CAST        = 'A03N';
-		
-		// Scout Spells
-		constant integer SPELL_SCOUT_MOTION_SENSOR_S  = 'A071';
-		constant integer SPELL_SCOUT_MOTION_SENSOR_R  = 'A055';
 
 
 		//#####################################################
@@ -260,8 +256,7 @@ library ID {
 		//#####################################################
 
 		constant integer BUFF_GOK                     = 'Bakb';
-		constant integer BUFF_MAP_MAGIC				  = 'BHbd';
-		constant integer BUFF_THIEF_CLOAK			  = 'BOwk';
+
 
 		//#####################################################
 		// Items
