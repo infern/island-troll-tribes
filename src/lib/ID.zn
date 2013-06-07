@@ -260,8 +260,8 @@ library ID {
 		//#####################################################
 
 		constant integer BUFF_GOK                     = 'Bakb';
-		constant integer BUFF_MAP_MAGIC				  = 'BHbd';
-		constant integer BUFF_THIEF_CLOAK			  = 'BOwk';
+		constant integer BUFF_MAP_MAGIC=              = 'BHbd';
+		constant integer BUFF_THIEF_CLOAK             = 'BOwk';
 
 		//#####################################################
 		// Items
