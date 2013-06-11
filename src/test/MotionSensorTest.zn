@@ -1,0 +1,37 @@
+
+library MotionSensorTest requires IDUtils, PublicLibrary {
+
+  constant boolean RUN_MOTION_SENSOR_TESTS = true;
+
+  constant real OFFSET_X = -4000;
+  constant real OFFSET_Y = 2500;
+
+  function TestPlayerAlliances() {
+    integer i, j;
+    for ( 0 <= i <= 11 ) {
+      for ( 0 <= j <= 11 ) {
+        if ( IsUnitEnemy( GetPlayersTroll( Player( j ) ), Player( i ) ) ) {
+          BJDebugMsg( I2S( i ) + " is enemies with " + I2S( j ) );
+        }
+      }
+    }
+  }
+  
+  function onInit() {
+    integer i;
+    real x;
+    real y;
+    for ( 0 <= i <= 11 ) {
+      x = OFFSET_X + 2000 * Cos( bj_PI * i / 6 );
+      y = OFFSET_Y + 2000 * Sin( bj_PI * i / 6 );
+      PauseUnit( CreateUnit( Player( i ), UNIT_TROLL_TRANSPORT_SHIP, x, y, 270 ), true );
+    }
+    for ( 1 <= i <= 11 ) {
+      x = OFFSET_X + 4000 * Cos( bj_PI * i / 6 );
+      y = OFFSET_Y + 4000 * Sin( bj_PI * i / 6 );
+      PauseUnit( CreateUnit( Player( i ), UNIT_MAGE, x, y, 270 ), true );
+    }
+    //TimerStart( CreateTimer(), 1, false, function() { TestPlayerAlliances(); });
+  }
+}
+
