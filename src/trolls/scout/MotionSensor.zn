@@ -1,7 +1,10 @@
 library MotionSensor requires ID, TimerUtils, IsTypeThing, PublicLibrary {
 
-  constant real PING_RATE = 5;
+  constant real PING_RATE = 6;
   constant real NUM_PINGS = 5;
+  constant real BASE_RANGE = 4000;
+  constant real BASE_RANGE_MAP_MAGIC = 8000;
+  constant real RANGE_PER_LEVEL = 1000;
 
   struct PingData {
     player player;
@@ -28,46 +31,49 @@ library MotionSensor requires ID, TimerUtils, IsTypeThing, PublicLibrary {
     }
   }
 
-  function EnemiesFilter() -> boolean {
-    return GetUnitState( GetFilterUnit(), UNIT_STATE_LIFE ) >= 0;
-  }
-
   function Ping( player p ) {
     unit u;
     unit scout = GetPlayersTroll( p );
     group g = CreateGroup();
     real range;
 
+    BJDebugMsg( "playerId: " + I2S( GetPlayerId( p ) ) );
+    BJDebugMsg( "trollId: " + ID2S( GetUnitTypeId( scout ) ) );
+
     // Improved Motion Sensor
     if ( UnitHasBuffBJ( scout, BUFF_MAP_MAGIC ) ) {
       debug BJDebugMsg( "Casting Improved Motion Sensor!" );
-      range = 5000.00 + 1000.00 * I2R( GetUnitAbilityLevel( scout, SPELL_SCOUT_MOTION_SENSOR_R ) ); 
+      range = BASE_RANGE_MAP_MAGIC + RANGE_PER_LEVEL * I2R( GetUnitAbilityLevel( scout, SPELL_SCOUT_MOTION_SENSOR_R ) ); 
     }
     // Motion Sensor
     else {
       debug BJDebugMsg( "Casting Motion Sensor!" );
-      range = 2000.00 + 1000.00 * I2R( GetUnitAbilityLevel( scout, SPELL_SCOUT_MOTION_SENSOR_R ) ); 
+      range = BASE_RANGE + RANGE_PER_LEVEL * I2R( GetUnitAbilityLevel( scout, SPELL_SCOUT_MOTION_SENSOR_R ) ); 
     }
 
-    GroupEnumUnitsInRangeOfLoc( g, GetUnitLoc( scout ), range, Condition( function EnemiesFilter ) );
+    debug BJDebugMsg( "range: " + R2S( range ) );
 
-    u = FirstOfGroup( g );    
-    while ( u != null && IsUnitEnemy( u, p ) ) {
-      debug BJDebugMsg( "we're in hurrr" );
-      debug BJDebugMsg( "unit is a " + ID2S( GetUnitTypeId( u ) ) );
+    GroupEnumUnitsInRangeOfLoc( g, GetUnitLoc( scout ), range, null );
+    debug BJDebugMsg( "numUnits: " + I2S( CountUnitsInGroup( g ) ) );
 
-      // Blue Attack ping for Invisible units
-      if ( IsUnitTroll( u ) && GetUnitAbilityLevel( u, BUFF_THIEF_CLOAK ) > 0 ) {
-          PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 0, 0, 255, false );
+    u = FirstOfGroup( g );
+    while ( u != null ) {
+
+      if ( IsUnitEnemy( u, p ) && GetUnitState( u, UNIT_STATE_LIFE ) > 0 ) {
+        // Blue Attack ping for Invisible units
+        if ( IsUnitTroll( u ) && GetUnitAbilityLevel( u, BUFF_THIEF_CLOAK ) > 0 ) {
+            PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 0, 0, 255, false );
+        }
+        // Red Attack ping for trolls
+        else if ( IsUnitTroll( u ) ) {
+            PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 255, 0, 0, false );
+        }
+        // Green Attack ping for Boats
+        else if ( GetUnitTypeId( u ) == UNIT_TROLL_TRANSPORT_SHIP ) {
+            PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 0, 255, 0, false );
+        }
       }
-      // Red Attack ping for trolls
-      else if ( IsUnitTroll( u ) ) {
-          PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 255, 0, 0, false );
-      }
-      // Green Attack ping for Boats
-      else if ( GetUnitTypeId( u ) == UNIT_TROLL_TRANSPORT_SHIP ) {
-          PingMinimapEx( GetUnitX( u ), GetUnitY( u ), PING_RATE, 0, 255, 0, false );
-      }
+
       GroupRemoveUnit( g, u );
       u = FirstOfGroup( g );
     }
@@ -81,6 +87,8 @@ library MotionSensor requires ID, TimerUtils, IsTypeThing, PublicLibrary {
   function MotionSensor() {
     unit scout = GetTriggerUnit();
     PingData p;
+
+    Ping( GetOwningPlayer( GetTriggerUnit() ) );
 
     p = PingData.create( GetOwningPlayer( GetTriggerUnit() ) );
     TimerStart( NewTimerEx( p ), PING_RATE, true, function() {
