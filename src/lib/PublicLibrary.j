@@ -146,7 +146,7 @@ globals
 endglobals
 
 function getRandomTroll takes player play, real x, real y returns unit
-    local integer t = GetRandomInt( 1, 7 )
+    local integer t = GetRandomInt( 1, 8 )
     if udg_AllTroll != 0 then
         // takes care of -all modes
         set t = udg_AllTroll
@@ -165,6 +165,8 @@ function getRandomTroll takes player play, real x, real y returns unit
         return CreateUnit( play, UNIT_BEAST_MASTER, x, y, 0.0 )
     elseif ( t == 7 ) then
         return CreateUnit( play, UNIT_PRIEST, x, y, 0.0 )
+    elseif ( t == 8 ) then
+        return CreateUnit( play, UNIT_DRUNKEN_TROLL, x, y, 0.0 )
     endif
     return null
 endfunction
