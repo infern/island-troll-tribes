@@ -1,0 +1,20 @@
+
+library v290d requires ChangeLog {
+	function onInit() {
+		ChangeLog changes = ChangeLog.create( 2, 90, 'd' );
+		changes.push("New model for Assassin and Troll Brawler");
+		changes.push("Updated descriptions");
+		changes.push("Tent grants vision now");
+		changes.push("Snake poison reduced from 210 seconds to 160 seconds");
+		changes.push("Incrased HP of Troll Hut by 30");
+		changes.push("Updated Drunken troll and sub classes:");
+                changes.push("Enabled in random, fixed icons, new voice");
+                changes.push("Mighty drunken haze can now target passive animals and 
+
+buldings");
+                changes.push("Breath of fire additional level, damage rescaled");
+                changes.push("Troll Brawler is now able to use any gloves with the exception 
+
+for battlegloves ");
+  }
+}
