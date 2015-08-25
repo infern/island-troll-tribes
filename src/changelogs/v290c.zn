@@ -1,0 +1,9 @@
+
+library v290c requires ChangeLog {
+	function onInit() {
+		ChangeLog changes = ChangeLog.create( 2, 90, 'c' );
+		changes.push("Reverted the anabolic boots and steel boots changes, also buffed the anabolic boots by the same occasion");
+changes.push("Reworked drunken troll subs");
+
+  }
+}
